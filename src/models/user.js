@@ -41,6 +41,7 @@ const userSchema = new mongoose.Schema(
     { timestamps: true }
 );
 
+//----
 userSchema.statics.findByCredentials = function (email, password) {
     let User = this;
     return User.findOne({ email }).then((user) => {
