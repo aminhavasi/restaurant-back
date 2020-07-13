@@ -37,7 +37,8 @@ router.post('/register', async (req, res) => {
         });
         const newUser = await new User(body);
         await newUser.save();
-        res.status(201).send(newUser);
+        const resData = _.pick(newUser, ['_id', 'email', 'username', 'date']);
+        res.status(201).send(resData);
     } catch (err) {
         res.status(400).send(err);
     }
@@ -55,8 +56,7 @@ router.post('/login', async (req, res) => {
         );
 
         const token = await user.genAuthToken();
-
-        res.status(200).send(token);
+        res.header('x-auth', token).status(200).send();
     } catch (err) {
         res.status(400).send(err);
     }
