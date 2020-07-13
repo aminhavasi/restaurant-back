@@ -37,7 +37,13 @@ router.post('/register', async (req, res) => {
         });
         const newUser = await new User(body);
         await newUser.save();
-        const resData = _.pick(newUser, ['_id', 'email', 'username', 'date']);
+        const resData = _.pick(newUser, [
+            '_id',
+            'email',
+            'username',
+            'date',
+            'isAdmin',
+        ]);
         res.status(201).send(resData);
     } catch (err) {
         res.status(400).send(err);
